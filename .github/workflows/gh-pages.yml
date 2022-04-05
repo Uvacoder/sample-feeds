@@ -1,0 +1,40 @@
+
+name: Publish to GitHub Pages
+
+# Run when the main branch is pushed
+on:
+  push:
+    branches:
+      - main
+
+# Jobs
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # We need all history for .GitInfo and .Lastmod
+
+      - name: Setup timezone
+        uses: zcong1993/setup-timezone@master
+        with:
+          timezone: Europe/London
+
+      - name: Set up Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.86.0"
+          extended: true
+
+      - name: Build
+        run: hugo --minify --environment production
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          publish_branch: build
+          cname: sample-feeds.rowanmanning.com

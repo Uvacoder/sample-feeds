@@ -1,0 +1,19 @@
+
+{{ define "main" }}
+
+	<div class="content-body">
+		<h1>{{ .Title }}</h1>
+		{{ if .Content }}
+			{{ .Content }}
+		{{ end }}
+		<ul>
+			<li>Type: {{ .Params.feedType | default "Unknown" }}</li>
+			<li>Scraped: {{ dateFormat "2006-01-02" .Date }}</li>
+			<li><a href="{{ .RelPermalink }}feed.xml" rel="alternate">View the feed XML</a></li>
+			{{ if .Params.original }}
+				<li><a href="{{ .Params.original }}" rel="nofollow" target="_blank">Original source for this feed</a></li>
+			{{ end }}
+		</ul>
+	</div>
+
+{{ end }}

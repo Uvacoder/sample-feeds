@@ -1,0 +1,11 @@
+
+# Config for production environment
+
+# Set the base URL
+baseURL: https://sample-feeds.rowanmanning.com/
+
+# Set up site analytics
+params:
+  analytics:
+    fathomSiteId: "QXEMFQJP"
+    fathomSiteHostname: "falcon.rowanmanning.com"

@@ -1,0 +1,46 @@
+
+{{ define "title" }}{{ .Site.Title }}{{ end }}
+
+{{ define "main" }}
+
+	<div class="content-body">
+		<h1>{{ .Site.Title }}</h1>
+		{{ if .Content }}
+			{{ .Content }}
+		{{ end }}
+
+		{{ with .Site.GetPage "/examples" }}
+			<h2>{{ .Title }}</h2>
+			{{ with .Content }}{{ . }}{{ end }}
+			{{ if len .RegularPages }}
+				<ul>
+					{{ $pages := sort .RegularPages (.Params.sort.property | default "Title") (.Params.sort.direction | default "asc") }}
+					{{ range $pages }}
+						<li>
+							<a href="{{ .RelPermalink }}" class="link">{{ .Title }}</a>
+							(<a href="{{ .RelPermalink }}feed.xml">{{ with .Params.feedType }}{{ . }} {{ end }}XML</a>)
+						</li>
+					{{ end }}
+				</ul>
+			{{ end }}
+		{{ end }}
+
+		{{ with .Site.GetPage "/real-world" }}
+			<h2>{{ .Title }}</h2>
+			{{ with .Content }}{{ . }}{{ end }}
+			{{ if len .RegularPages }}
+				<ul>
+					{{ $pages := sort .RegularPages (.Params.sort.property | default "Title") (.Params.sort.direction | default "asc") }}
+					{{ range $pages }}
+						<li>
+							<a href="{{ .RelPermalink }}" class="link">{{ .Title }}</a>
+							(<a href="{{ .RelPermalink }}feed.xml">{{ with .Params.feedType }}{{ . }} {{ end }}XML</a>)
+						</li>
+					{{ end }}
+				</ul>
+			{{ end }}
+		{{ end }}
+
+	</div>
+
+{{ end }}
