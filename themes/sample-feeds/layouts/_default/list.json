@@ -4,6 +4,7 @@
 	{{-
 		$scratch.Add "feed" (dict
 			"title" $page.Title
+			"hash" $page.Params.hash
 			"type" $page.Params.feedType
 			"urls" (dict
 				"info" $page.Permalink
