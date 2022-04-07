@@ -1,0 +1,16 @@
+{{- $scratch := newScratch -}}
+{{- $scratch.Add "feed" slice -}}
+{{- range $page := .RegularPages -}}
+	{{-
+		$scratch.Add "feed" (dict
+			"title" $page.Title
+			"type" $page.Params.feedType
+			"urls" (dict
+				"info" $page.Permalink
+				"feed" ($page.Resources.GetMatch "feed.xml").Permalink
+				"original" $page.Params.original
+			)
+		)
+	-}}
+{{- end -}}
+{{ jsonify (dict "indent" "    ") ($scratch.Get "feed") }}

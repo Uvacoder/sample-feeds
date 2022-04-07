@@ -9,35 +9,27 @@
 			{{ .Content }}
 		{{ end }}
 
-		{{ with .Site.GetPage "/examples" }}
-			<h2>{{ .Title }}</h2>
-			{{ with .Content }}{{ . }}{{ end }}
-			{{ if len .RegularPages }}
-				<ul>
-					{{ $pages := sort .RegularPages (.Params.sort.property | default "Title") (.Params.sort.direction | default "asc") }}
-					{{ range $pages }}
-						<li>
-							<a href="{{ .RelPermalink }}" class="link">{{ .Title }}</a>
-							(<a href="{{ .RelPermalink }}feed.xml">{{ with .Params.feedType }}{{ . }} {{ end }}XML</a>)
-						</li>
-					{{ end }}
-				</ul>
-			{{ end }}
-		{{ end }}
-
-		{{ with .Site.GetPage "/real-world" }}
-			<h2>{{ .Title }}</h2>
-			{{ with .Content }}{{ . }}{{ end }}
-			{{ if len .RegularPages }}
-				<ul>
-					{{ $pages := sort .RegularPages (.Params.sort.property | default "Title") (.Params.sort.direction | default "asc") }}
-					{{ range $pages }}
-						<li>
-							<a href="{{ .RelPermalink }}" class="link">{{ .Title }}</a>
-							(<a href="{{ .RelPermalink }}feed.xml">{{ with .Params.feedType }}{{ . }} {{ end }}XML</a>)
-						</li>
-					{{ end }}
-				</ul>
+		{{ range (slice "/examples" "/real-world") }}
+			{{ with $.Site.GetPage . }}
+				<h2>{{ .Title }}</h2>
+				{{ with .Content }}{{ . }}{{ end }}
+				{{ with .OutputFormats.Get "Feed Section JSON" }}
+					<p>
+						If you need to get the list of feeds programmatically,
+						<a href="{{ .RelPermalink }}">you can do so by requesting this JSON document</a>.
+					</p>
+				{{ end }}
+				{{ if len .RegularPages }}
+					<ul>
+						{{ $pages := sort .RegularPages (.Params.sort.property | default "Title") (.Params.sort.direction | default "asc") }}
+						{{ range $pages }}
+							<li>
+								<a href="{{ .RelPermalink }}" class="link">{{ .Title }}</a>
+								(<a href="{{ .RelPermalink }}feed.xml">{{ with .Params.feedType }}{{ . }} {{ end }}XML</a>)
+							</li>
+						{{ end }}
+					</ul>
+				{{ end }}
 			{{ end }}
 		{{ end }}
 

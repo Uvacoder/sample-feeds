@@ -1,0 +1,25 @@
+
+# JSON representation
+# ===================
+#
+# Add "FEED_SECTION_JSON" to the home Page Kind under [outputs.home] in your site config
+# to generate a Lunr index.
+#
+# Example:
+#   [outputs]
+#     section = ["HTML", "FEED SECTION JSON"]
+
+# Required media types
+[mediaTypes."application/json"]
+  suffixes = ["json"]
+
+# JSON output formats (generates the JSON feed list)
+[outputFormats.Feed_Section_JSON]
+  name = "Feed Section JSON"
+  mediaType = "application/json"
+  baseName = "list"
+  isPlainText = true
+  rel = "alternate"
+  isHTML = false
+  noUgly = false
+  permalinkable = false
