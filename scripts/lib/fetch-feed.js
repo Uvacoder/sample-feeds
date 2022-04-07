@@ -18,7 +18,7 @@ module.exports = async function fetchFeed(type, url) {
 	await fs.writeFile(path.join(pagePath, 'index.md'), `
 		---
 		title: "${url}"
-		hash: "${directoryName}",
+		hash: "${directoryName}"
 		original: "${url}"
 		date: "${new Date().toISOString().split('T').shift()}"
 		feedType: "Unknown"
